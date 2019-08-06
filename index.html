@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body{
+        background-color: #094285  ;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+    }
+    .container{
+        
+    }
+    .BlocoTop{
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        background-color: #1d5da8;
+        padding: 2% 5%;
+    }
+    .tipoServico{
+        margin: auto; 
+        border-radius: 2px;
+    }
+    select, option {
+        color: #094285;
+        padding: 8px 16px;
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        cursor: pointer;
+        font-weight: bold;
+        
+    }
+
+    .pesoProduto {
+        width: 50%;
+        margin: auto;
+    }
+    .ResultPeso{
+        text-align: center;
+        margin: auto;
+        font-size: 18px;
+    }
+
+    /* The slider itself */
+    .slider {
+        -webkit-appearance: none;  
+        appearance: none;
+        width: 100%;
+      height: 15px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+    }
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #094285;
+      cursor: pointer;
+      border-radius: 25px;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4CAF50; 
+      cursor: pointer;
+    }
+    
+    .ResultadoCalc{
+        padding: 5% 15%; 
+    }
+</style>
+<body>
+<div class="container">
+    <div class="BlocoTop"> 
+        <p style="font-size: 24px; width: 20%; text-align: center">SIMULAÇÃO <br>DE <b style="font-size: 24px">PREÇOS</b></p>
+        <div class="tipoServico">
+            <select id="scripts" onchange="myFunction()">
+                <option value="0">Selecione o Serviço:</option>
+                <option value="1">Redirecionamento</option>
+                <option value="2">Compra Assistida</option>
+                <option value="3">Personal Shopper</option>
+                <option value="4">Maternidade</option>
+            </select>
+        </div>
+        
+        <div class="pesoProduto">
+            <input type="range" min="1" max="60" value="1" class="slider" id="myRange" onchange="ageOutputId.value = myRange.value">
+        </div>
+        <div class="ResultPeso">
+            <p><output style="font-size: 25px" name="ageOutputName" id="ageOutputId">1</output> Libra(s)</p>
+        </div>
+    </div>
+    <div class="ResultadoCalc">
+    <div class="txFrete">
+        <p>Taxa do Frete: </p>
+        <h3 id="">
+            <output name="FreteOutputName" id="txFreteID">US$ 0,00</output>
+        </h3>
+    </div>
+    <div class="txFrete">
+        <p>Taxa do Serviço: </p>
+        <h3>
+            <output name="ServicoOutputName" id="txServicoID">US$ 0,00</output>
+        </h3>
+    </div>
+    <div style="height: 5px; width: 100%; background-color:#1d5da8"></div>
+    <div class="txFrete">
+        <p>Valor Total: </p>
+        <h1 id="valTotalID">US$ 0,00</h1>
+    
+    </div>
+    </div>
+</div>
+</body>
+    
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("ageOutputId");
+var txFreteID = document.getElementById("txFreteID");
+var txServicoID = document.getElementById("txServicoID");
+var valTotalID = document.getElementById("valTotalID"); //ID do Valor total do serviço
+var valorFrete = [0.00,30.00,40.00,70.00,90.00]  //Tabela de valores do frete
+var valorServico = [0.00,30.00,40.00,70.00,90.00] //Tabela de valores do Serviço
+
+
+function myFunction(servicoSel) {
+  var servicoSelec = document.getElementById("scripts").value; //ID do serviço selecionado
+}
+    
+
+
+
+
+document.getElementById("txFreteID").innerHTML = "US$ " + valorFrete[3].toFixed(2);
+
+
+    
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+
+
+</script>
+</html>
