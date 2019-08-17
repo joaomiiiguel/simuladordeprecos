@@ -83,17 +83,17 @@
     <div class="BlocoTop"> 
         <p style="font-size: 24px; width: 20%; text-align: center">SIMULAÇÃO <br>DE <b style="font-size: 24px">PREÇOS</b></p>
         <div class="tipoServico">
-            <select id="scripts" onchange="myFunction()">
+            <select id="scripts" onchange="getValorServico()">
                 <option value="0">Selecione o Serviço:</option>
-                <option value="1">Redirecionamento</option>
-                <option value="2">Compra Assistida</option>
-                <option value="3">Personal Shopper</option>
-                <option value="4">Maternidade</option>
+                <option value="30">Redirecionamento</option>
+                <option value="40">Compra Assistida</option>
+                <option value="70">Personal Shopper</option>
+                <option value="90">Maternidade</option>
             </select>
         </div>
         
         <div class="pesoProduto">
-            <input type="range" min="1" max="60" value="1" class="slider" id="myRange" onchange="ageOutputId.value = myRange.value">
+            <input type="range" min="1" max="60" value="1" class="slider" id="myRange" onchange="ageOutputId.value = myRange.value; getValorFrete()">
         </div>
         <div class="ResultPeso">
             <p><output style="font-size: 25px" name="ageOutputName" id="ageOutputId">1</output> Libra(s)</p>
@@ -101,21 +101,24 @@
     </div>
     <div class="ResultadoCalc">
     <div class="txFrete">
-        <p>Taxa do Frete: </p>
-        <h3 id="">
-            <output name="FreteOutputName" id="txFreteID">US$ 0,00</output>
+        <p>Taxa do Serviço: </p>
+        <h3>
+            <output name="ServicoOutputName" id="txServicoID">US$ 0.00</output>
         </h3>
     </div>
     <div class="txFrete">
-        <p>Taxa do Serviço: </p>
+        <p>Taxa do Frete: </p>
         <h3>
-            <output name="ServicoOutputName" id="txServicoID">US$ 0,00</output>
+            <output name="FreteOutputName" id="txFreteID">US$ 0.00</output>
         </h3>
     </div>
+    
     <div style="height: 5px; width: 100%; background-color:#1d5da8"></div>
     <div class="txFrete">
         <p>Valor Total: </p>
-        <h1 id="valTotalID">US$ 0,00</h1>
+        <h1 id="valTotal">
+            <output name="ValorTotalOutputName" id="valTotalID">US$ 0.00</output>
+        </h1>
     
     </div>
     </div>
@@ -127,28 +130,36 @@ var slider = document.getElementById("myRange");
 var output = document.getElementById("ageOutputId");
 var txFreteID = document.getElementById("txFreteID");
 var txServicoID = document.getElementById("txServicoID");
+var valorFrete = [0.00,60,40.00,70.00,90.00]  //Tabela de valores do frete
 var valTotalID = document.getElementById("valTotalID"); //ID do Valor total do serviço
-var valorFrete = [0.00,30.00,40.00,70.00,90.00]  //Tabela de valores do frete
-var valorServico = [0.00,30.00,40.00,70.00,90.00] //Tabela de valores do Serviço
 
 
-function myFunction(servicoSel) {
-  var servicoSelec = document.getElementById("scripts").value; //ID do serviço selecionado
+//Pegar valor do Frete
+
+function getValorFrete(){
+    var freteSel = document.getElementById("myRange").value;
+        txFreteID.innerHTML = "US$ " + freteSel;
 }
+
+//Pegar valor do Serviço
+function getValorServico() {
+  var servicoSel = document.getElementById("scripts").value;
+    txServicoID.innerHTML = "US$ " + servicoSel + ".00";
+}
+var ResultadoFinal = 10 + servicoSel.value;
+valTotalID.innerHTML = ResultadoFinal;
+
+
     
-
-
-
-
-document.getElementById("txFreteID").innerHTML = "US$ " + valorFrete[3].toFixed(2);
-
-
     
 output.innerHTML = slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
   output.innerHTML = this.value;
+}
+slider.oninput = function() {
+  valorFrete = this.value;
 }
 
 
