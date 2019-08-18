@@ -7,9 +7,6 @@
         font-family: 'Montserrat', sans-serif;
         margin: 0;
     }
-    .container{
-        
-    }
     .BlocoTop{
         height: 100px;
         display: flex;
@@ -41,7 +38,6 @@
         font-size: 18px;
     }
 
-    /* The slider itself */
     .slider {
         -webkit-appearance: none;  
         appearance: none;
@@ -130,15 +126,28 @@ var slider = document.getElementById("myRange");
 var output = document.getElementById("ageOutputId");
 var txFreteID = document.getElementById("txFreteID");
 var txServicoID = document.getElementById("txServicoID");
-var valorFrete = [0.00,60,40.00,70.00,90.00]  //Tabela de valores do frete
+var fretePacket = [0,19.00,28.00,37.00,54.00]  //Tabela de valores do frete E-Packet
+var freteFirst = [0,23.28,23.28,36.58] //Tabela de valores do frete Firt
+var fretePriority = [0,44.13,47.79,51.44,55.10,58.76,62.46,66.12,69.78,73.44,77.09,81.13,85.17,89.25,93.29,97.33,101.37,105.50,109.49,113.53] //Tabela de valores do frete Priority Mail
 var valTotalID = document.getElementById("valTotalID"); //ID do Valor total do serviço
+
+
+//Atualiza o valor do peso no html
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
 
 
 //Pegar valor do Frete
 
 function getValorFrete(){
     var freteSel = document.getElementById("myRange").value;
-        txFreteID.innerHTML = "US$ " + freteSel;
+    slider.oninput = function() {
+        freteSel = this.value;
+        txFreteID.innerHTML = "US$ " + fretePriority[freteSel];
+    } 
 }
 
 //Pegar valor do Serviço
@@ -146,21 +155,18 @@ function getValorServico() {
   var servicoSel = document.getElementById("scripts").value;
     txServicoID.innerHTML = "US$ " + servicoSel + ".00";
 }
-var ResultadoFinal = 10 + servicoSel.value;
-valTotalID.innerHTML = ResultadoFinal;
+
+
+//Fazer a Soma do serviço
+function setValorTotal(){
+    var ResultadoFinal = getValorServico(servicoSel) + getValorFrete(fretePriority[freteSel]); 
+    valTotalID.innerHTML = ResultadoFinal;
+}
+
 
 
     
-    
-output.innerHTML = slider.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-slider.oninput = function() {
-  valorFrete = this.value;
-}
 
 
 
